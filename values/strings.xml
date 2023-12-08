@@ -1,0 +1,67 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="navigation_drawer_open">navigation_drawer_open</string>
+    <string name="navigation_drawer_close">navigation_drawer_close</string>
+    <integer-array name="male">
+        <item>@drawable/m_noeq</item>
+        <item>@drawable/m_hp</item>
+        <item>@drawable/m_laptop</item>
+        <item>@drawable/m_bottle</item>
+        <item>@drawable/m_notes</item>
+        <item>@drawable/m_coffee</item>
+        <item>@drawable/m_book</item>
+        <item>@drawable/m_pipmie</item>
+        <item>@drawable/m_soda</item>
+        <item>@drawable/m_pc</item>
+    </integer-array>
+    <integer-array name="female">
+        <item>@drawable/f_noeq</item>
+        <item>@drawable/f_hp</item>
+        <item>@drawable/f_laptop</item>
+        <item>@drawable/f_water</item>
+        <item>@drawable/f_notes</item>
+        <item>@drawable/f_coffee</item>
+        <item>@drawable/f_book</item>
+        <item>@drawable/f_noodle</item>
+        <item>@drawable/f_soda</item>
+        <item>@drawable/f_pc</item>
+    </integer-array>
+    <integer-array name="items">
+        <item>@drawable/i_hp</item>
+        <item>@drawable/i_laptop</item>
+        <item>@drawable/i_water</item>
+        <item>@drawable/i_notes</item>
+        <item>@drawable/i_coffee</item>
+        <item>@drawable/i_book</item>
+        <item>@drawable/i_noodles</item>
+        <item>@drawable/i_soda</item>
+        <item>@drawable/i_pc</item>
+    </integer-array>
+    <integer-array name="items_icon">
+        <item>@drawable/hp</item>
+        <item>@drawable/laptop</item>
+        <item>@drawable/water</item>
+        <item>@drawable/notes</item>
+        <item>@drawable/coffee</item>
+        <item>@drawable/book</item>
+        <item>@drawable/noodle</item>
+        <item>@drawable/soda</item>
+        <item>@drawable/pc</item>
+    </integer-array>
+    <integer-array name="items_bg">
+        <item>@drawable/common_bg</item>
+        <item>@drawable/rare_bg</item>
+        <item>@drawable/epic_bg</item>
+    </integer-array>
+    <integer-array name="achievement_icon">
+        <item>@drawable/i_achi_p</item>
+        <item>@drawable/i_a_t5h</item>
+        <item>@drawable/i_a_t3d</item>
+        <item>@drawable/i_a_t7d</item>
+        <item>@drawable/i_a_t15d</item>
+        <item>@drawable/i_a_t30d</item>
+        <item>@drawable/i_a_c3</item>
+        <item>@drawable/i_a_c6</item>
+        <item>@drawable/i_a_c9</item>
+    </integer-array>
+</resources>
