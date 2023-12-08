@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="5dp"
+    android:background="@drawable/achi_bg"
+    android:paddingLeft="5dp">
+
+    <LinearLayout
+        android:layout_width="266dp"
+        android:layout_height="89dp"
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/achievementDescriptionTextView"
+                android:layout_width="201dp"
+                android:layout_height="37dp"
+                android:layout_marginStart="64dp"
+                android:fontFamily="@font/roboto"
+                android:text="First time using pomodoro timer (0/1)"
+                android:textColor="@color/green"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.888" />
+
+            <TextView
+                android:id="@+id/achievementNameTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="64dp"
+                android:fontFamily="@font/roboto"
+                android:text="Pomodoro Timer"
+                android:textColor="@color/green"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.246" />
+
+            <ImageView
+                android:id="@+id/iconAchievementView"
+                android:layout_width="53dp"
+                android:layout_height="49dp"
+                android:layout_marginStart="4dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.508"
+                app:srcCompat="@drawable/i_achi_p" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="69dp"
+        android:layout_height="89dp"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/rewardButton"
+            android:layout_width="match_parent"
+            android:layout_height="89dp"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/achi_btn_bg"
+            android:onClick="claimReward"
+            android:paddingTop="50dp"
+            android:text="50"
+            android:textColor="@color/green" />
+    </LinearLayout>
+
+</LinearLayout>

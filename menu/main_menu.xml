@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/menu_main"
+            android:title="Main Menu"
+            android:icon="@drawable/mainmenu_icon"/>
+        <item
+            android:id="@+id/menu_shop"
+            android:title="Shop"
+            android:icon="@drawable/shop_icon"/>
+        <item
+            android:id="@+id/menu_achievement"
+            android:title="Achievement"
+            android:icon="@drawable/achi_icon"/>
+        <item
+            android:id="@+id/menu_settings"
+            android:title="Settings"
+            android:icon="@drawable/settings_icon"/>
+    </group>
+</menu>
