@@ -36,6 +36,8 @@ class MainMenuActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navigationView: NavigationView
     private lateinit var selectedGender:String
+    private lateinit var permissionDialog: AlertDialog
+    private val PERMISSION_REQUEST_FOREGROUND_SERVICE = 123
 
     @SuppressLint("SetTextI18n", "UseCompatLoadingForDrawables")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -80,7 +82,11 @@ class MainMenuActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         SelectCharacterImage(selectGender, equip)
         updateRewardText(calculateReward(seekBar.progress.toInt()),equip?.power ?: 0)
         setTimerButton.setOnClickListener {
-            navigateToTimerActivity(selectedTimerMinutes)
+            if (checkPermissions()) {
+                navigateToTimerActivity(selectedTimerMinutes)
+            } else {
+                showPermissionDialog()
+            }
         }
         sharedViewModel.userCurrency.observe(this) { userCurrency ->
             userCurrencyTextView.text = "${userCurrency.amount}"
@@ -139,13 +145,13 @@ class MainMenuActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
         return true
     }
     private fun updateTimerText(minutes: Int) {
-        val roundedMinutes = (minutes/5) *10
+        val roundedMinutes = (minutes/5) * 5
         val displayMinutes = if (roundedMinutes + 10 > 120) 120 else roundedMinutes + 10
         val formattedMinutes = String.format("%02d", displayMinutes)
         textView.text = "$formattedMinutes:00"
     }
     private fun navigateToTimerActivity(timerMinutes: Int) {
-        val roundedMinutes = (timerMinutes/5)*10
+        val roundedMinutes = (timerMinutes/5) * 5
         val equip = sharedViewModel.equippedItem.value
         sharedViewModel.setEquippedItem(equip)
         val intent = Intent(this, TimerActivity::class.java)
@@ -159,5 +165,69 @@ class MainMenuActivity : AppCompatActivity(), NavigationView.OnNavigationItemSel
     private fun calculateReward(progress: Int): Int {
         val baseReward = progress * 10
         return baseReward
+    }
+    private fun showPermissionDialog() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Permission Required")
+        val view = LayoutInflater.from(this).inflate(R.layout.permission_dialog, null)
+
+        val systemAlertWindowSwitch = view.findViewById<Switch>(R.id.systemAlertWindowSwitch)
+
+        systemAlertWindowSwitch.isChecked = checkSystemAlertWindowPermission()
+
+        builder.setView(view)
+        builder.setPositiveButton("OK") { dialog, _ ->
+            // Handle permission switches here
+
+            if (systemAlertWindowSwitch.isChecked) {
+                requestSystemAlertWindowPermission()
+            }
+                requestForegroundServicePermission()
+            if (checkPermissions()) {
+                navigateToTimerActivity(selectedTimerMinutes)
+            } else {
+                Toast.makeText(this, "Required permissions not granted", Toast.LENGTH_SHORT).show()
+            }
+            dialog.dismiss()
+        }
+
+        builder.setNegativeButton("Cancel") { dialog, _ ->
+            dialog.dismiss()
+        }
+
+        permissionDialog = builder.create()
+        permissionDialog.show()
+    }
+
+
+    private fun checkSystemAlertWindowPermission(): Boolean {
+
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            Settings.canDrawOverlays(this)
+        } else {
+            true
+        }
+    }
+    private fun checkForegroundPermission(): Boolean {
+        return ContextCompat.checkSelfPermission(
+            this,
+            android.Manifest.permission.FOREGROUND_SERVICE
+        ) == PackageManager.PERMISSION_GRANTED
+    }
+
+    private fun requestForegroundServicePermission() {
+        ActivityCompat.requestPermissions(
+            this,
+            arrayOf(android.Manifest.permission.FOREGROUND_SERVICE),
+            PERMISSION_REQUEST_FOREGROUND_SERVICE
+        )
+    }
+
+    private fun requestSystemAlertWindowPermission() {
+        val intent = Intent(
+            Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+            Uri.parse("package:$packageName")
+        )
+        startActivity(intent)
     }
 }
