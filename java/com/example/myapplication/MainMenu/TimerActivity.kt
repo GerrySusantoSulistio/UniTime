@@ -37,6 +37,7 @@ class TimerActivity : AppCompatActivity(){
     private var timerMinutes: Int = 0
     private lateinit var countDownTimer: CountDownTimer
     private lateinit var characterTimerImageView: ImageView
+    private var isTimerRunning = true
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_timer)
@@ -57,6 +58,7 @@ class TimerActivity : AppCompatActivity(){
             override fun onFinish() {
                 updateTimerText(0, 0)
                 navigateToBreakActivity()
+                isTimerRunning=false
             }
         }.start()
         stopButton.setOnClickListener {
@@ -156,5 +158,35 @@ class TimerActivity : AppCompatActivity(){
     private fun calculateReward(power: Int): Int {
         val baseReward = timerMinutes / 5 * 10
         return baseReward + power
+    }
+     override fun onDestroy() {
+        super.onDestroy()
+        timerMinutes= 0
+        updateTimerText(0,0)
+        isTimerRunning=false
+    }
+    override fun onResume() {
+        super.onResume()
+        if (isTimerRunning) {
+            hideOverlay()
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        if (isTimerRunning) {
+            showOverlay()
+        }
+    }
+    private fun showOverlay() {
+        val overlayIntent = Intent(this, ForegroundAppService::class.java)
+        ContextCompat.startForegroundService(this, overlayIntent)
+        Log.d("TimerActivity", "here")
+    }
+
+    private fun hideOverlay() {
+        val overlayIntent = Intent(this, ForegroundAppService::class.java)
+        stopService(overlayIntent)
+        Log.d("TimerActivity", "hereHIIDEEE")
     }
 }
